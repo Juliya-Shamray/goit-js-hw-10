@@ -22,13 +22,16 @@ fetchBreeds()
       select: selectEl,
       data: dataMarkup,
     });
-    loader.classList.replace('loader', 'visually-hidden');
+
     setTimeout(() => {
       selectEl.classList.remove('visually-hidden');
     }, 500);
   })
   .catch(error => {
     errorShow();
+  })
+  .finally(() => {
+    loader.classList.replace('loader', 'visually-hidden');
   });
 
 function selectMarkUp(arr) {
@@ -48,13 +51,15 @@ function onSearchBreedCat() {
   fetchCatByBreed(selectEl.value)
     .then(data => {
       renderCat(data);
-      loader.classList.add('visually-hidden');
       setTimeout(() => {
         infoEl.classList.remove('visually-hidden');
       }, 200);
     })
     .catch(error => {
       errorShow();
+    })
+    .finally(() => {
+      loader.classList.add('visually-hidden');
     });
 }
 
