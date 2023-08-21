@@ -1,4 +1,6 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import SlimSelect from 'slim-select';
+import 'slim-select/dist/slimselect.css';
 
 import { fetchBreeds, fetchCatByBreed } from './cat-api';
 
@@ -7,7 +9,7 @@ const infoEl = document.querySelector('.cat-info');
 const loader = document.querySelector('.loader');
 const errorEl = document.querySelector('.error');
 
-selectEl.addEventListener('input', onSearchBreedCat);
+selectEl.addEventListener('change', onSearchBreedCat);
 
 loader.classList.add('loader');
 selectEl.classList.add('visually-hidden');
@@ -15,12 +17,20 @@ errorEl.classList.add('visually-hidden');
 
 fetchBreeds()
   .then(data => {
-    loader.classList.add('visually-hidden');
-    selectEl.classList.remove('visually-hidden');
-    selectMarkUp(data);
+    const dataMarkup = selectMarkUp(data);
+    new SlimSelect({
+      select: selectEl,
+      data: dataMarkup,
+    });
   })
   .catch(error => {
     errorShow();
+  })
+  .finally(() => {
+    setTimeout(() => {
+      loader.classList.add('visually-hidden');
+      selectEl.classList.remove('visually-hidden');
+    }, 200);
   });
 
 function selectMarkUp(arr) {
@@ -35,16 +45,20 @@ function selectMarkUp(arr) {
 
 function onSearchBreedCat() {
   loader.classList.remove('visually-hidden');
-
   infoEl.classList.add('visually-hidden');
+
   fetchCatByBreed(selectEl.value)
     .then(data => {
       renderCat(data);
-      loader.classList.add('visually-hidden');
-      infoEl.classList.remove('visually-hidden');
     })
     .catch(error => {
       errorShow();
+    })
+    .finally(() => {
+      setTimeout(() => {
+        loader.classList.add('visually-hidden');
+        infoEl.classList.remove('visually-hidden');
+      }, 200);
     });
 }
 
