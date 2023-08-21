@@ -27,10 +27,10 @@ fetchBreeds()
     errorShow();
   })
   .finally(() => {
+    loader.classList.replace('loader', 'visually-hidden');
     setTimeout(() => {
-      loader.classList.add('visually-hidden');
       selectEl.classList.remove('visually-hidden');
-    }, 200);
+    }, 500);
   });
 
 function selectMarkUp(arr) {
@@ -55,8 +55,8 @@ function onSearchBreedCat() {
       errorShow();
     })
     .finally(() => {
+      loader.classList.add('visually-hidden');
       setTimeout(() => {
-        loader.classList.add('visually-hidden');
         infoEl.classList.remove('visually-hidden');
       }, 200);
     });
