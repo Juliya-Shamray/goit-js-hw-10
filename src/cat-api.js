@@ -3,7 +3,7 @@ axios.defaults.headers.common['x-api-key'] =
   'live_YWIhlUdzdWKmRAH4BJYsyQzp36DHTzgZKlq2yvYRonWF6Huht4dWz4ZAOldsg2QS';
 const BASE_URL = 'https://api.thecatapi.com/v1';
 const endPoint1 = '/breeds';
-const endPoint2 = '/images';
+const endPoint2 = '/image';
 
 function fetchBreeds() {
   return fetch(`${BASE_URL}${endPoint1}`).then(response => {
