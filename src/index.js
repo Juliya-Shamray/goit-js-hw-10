@@ -17,10 +17,9 @@ errorEl.classList.add('visually-hidden');
 
 fetchBreeds()
   .then(data => {
-    const dataMarkup = selectMarkUp(data);
+    selectMarkUp(data);
     new SlimSelect({
       select: selectEl,
-      data: dataMarkup,
     });
 
     setTimeout(() => {
